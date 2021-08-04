@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class dbconnect extends JFrame{
+public class dbconnect extends Menu{
     public static Connection connection;
     public static Statement statement;
     public static ResultSet resultset;
@@ -37,9 +37,7 @@ public class dbconnect extends JFrame{
     }
 
     public void list() {
-        //Vector<Object> data = new Vector<Object>();
-        //Vector<Object> columnNames = new Vector<Object>();
-        String[][] data = new String[0][];
+        JTable tabeljadi;
         try {
             //connect database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -58,20 +56,20 @@ public class dbconnect extends JFrame{
             while (resultset.next()){
                 String idbarang = resultset.getString("id_barang");
                 String namabarang = resultset.getString("nama_barang");
-                String jumlahbarang = resultset.getString("")
+                String jumlahbarang = resultset.getString("jumlah_barang");
+                String hargabarang = resultset.getString("harga_barang");
+
+                String[] data = {idbarang,namabarang,jumlahbarang,hargabarang};
+                tabel1.addRow(data);
+
+                tabeljadi = new JTable(tabel1);
+                panel.add(tabeljadi);
             }
-
-
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        
-        };
-
-        JTable tabeljadi = new JTable(tabel1);
-        JScrollPane sp = new JScrollPane(tabeljadi);
-    }
+        }
 
     public static void insertlist(){
         try {

@@ -4,7 +4,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class Menu extends Login {
     JFrame frame;
-    JTable tabel1;
     JLabel label1;
     JPanel panel;
 
@@ -14,26 +13,13 @@ public class Menu extends Login {
 
         //label atas
         label1 = new JLabel("Selamat Datang di Keranjang Belanja");
-
+        JPanel panel = new JPanel();
+        panel.add(label1);
         // Initializing the JTable
         dbconnect dbhook = new dbconnect();
         dbhook.list();
 
-
-        //panel dan scrollpanel
-        JPanel panel = new JPanel();
-        JScrollPane sp = new JScrollPane(tabel1);
-
-        //add to panel
-        panel.add(label1);
-        panel.add(sp);
-
-        // adding all item to JScrollPane
-
-        //sp.add(table1);
-       // sp.add(label1);
-
-        // add to frame
+        //tambahkan panel ke frame
         frame.add(panel);
         frame.setSize(500, 200);
         frame.setVisible(true);
