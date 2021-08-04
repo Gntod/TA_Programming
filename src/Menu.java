@@ -22,6 +22,10 @@ public class Menu extends Login {
         //label atas
         label1 = new JLabel("Selamat Datang di Keranjang Belanja");
 
+        //panel
+        JPanel panel = new JPanel();
+        panel.add(label1);
+
         //tabel
         JTable tabeljadi;
         try {
@@ -56,11 +60,6 @@ public class Menu extends Login {
             e.printStackTrace();
         }
 
-        JPanel panel = new JPanel();
-        panel.add(label1);
-        // Initializing the JTable
-        dbconnect dbhook = new dbconnect();
-        dbhook.list();
 
         //tambahkan panel ke frame
         frame.add(panel);
