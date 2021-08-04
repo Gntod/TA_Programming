@@ -63,7 +63,7 @@ public class dbconnect extends Menu{
                 tabel1.addRow(data);
 
                 tabeljadi = new JTable(tabel1);
-                panel.add(tabeljadi);
+
             }
         }catch (Exception e){
             e.printStackTrace();
