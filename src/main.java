@@ -5,9 +5,9 @@ public class main {
 
   public static JFrame login = new JFrame("Login");
     public static void main(String[] args) {
-        Menu menuke = new Menu();
-        menuke.menuPanel();
-        //keLogin();
+        //Menu menuke = new Menu();
+        //menuke.menuPanel();
+        keLogin();
       }
 
     public static void keLogin(){
