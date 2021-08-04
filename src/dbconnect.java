@@ -11,8 +11,7 @@ public class dbconnect extends Menu{
     public static ResultSetMetaData resultsetmd;
     public static String sql = "";
     public static Scanner scanner = new Scanner(System.in);
-  //  public Vector<Object> columnNames = new Vector<Object>();
-  //  public Vector<Object> data = new Vector<Object>();
+
 
     public static void menu(){
         System.out.println("1. insert");
@@ -192,5 +191,8 @@ public class dbconnect extends Menu{
         else if (pilihupdate.equals("4")){
             System.exit(0);
         }
+    }
+    public void getRowCount(){
+
     }
 }

@@ -1,29 +1,34 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.Scanner;
 
 
 public class Menu extends Login {
-    JFrame frame;
-    JLabel label1;
-    JPanel panel;
+    JFrame frame,frame2;
+    JLabel label1,label2;
     public static Connection connection;
     public static Statement statement;
     public static ResultSet resultset;
     public static ResultSetMetaData resultsetmd;
     public static String sql = "";
-    public static Scanner scanner = new Scanner(System.in);
+    JPanel panel = new JPanel();
+    JPanel panel2 = new JPanel();
+    JButton button = new JButton();
+
+
 
     public void menuPanel(){
         frame = new JFrame();
         frame.setTitle("Keranjang Belanja");
-
         //label atas
-        label1 = new JLabel("Selamat Datang di Keranjang Belanja");
-
+        label1 = new JLabel("Selamat Datang di Keranjang Belanja\n\n");
+        label2 = new JLabel("List Barang yang ada\n\n");
+        button = new JButton("Add Belanjaan");
         //panel
-        JPanel panel = new JPanel();
+        panel.setSize(200,100);
         panel.add(label1);
 
         //tabel
@@ -38,24 +43,40 @@ public class Menu extends Login {
             sql = "select * from barang";
             resultset = statement.executeQuery(sql);
             resultsetmd = resultset.getMetaData();
-            int kolom = resultsetmd.getColumnCount();
 
             //buat tabel
-            String[] columnNames = { "ID Barang", "Nama Barang", "Jumlah Barang", "Harga Barang" };
+            String[] columnNames = { "ID Barang", "Nama Barang",  "Harga Barang","Jumlah Barang"};
             DefaultTableModel tabel1 = new DefaultTableModel(columnNames,0);
+
             while (resultset.next()){
-                String idbarang = resultset.getString("id_barang");
-                String namabarang = resultset.getString("nama_barang");
-                String jumlahbarang = resultset.getString("jumlah_barang");
-                String hargabarang = resultset.getString("harga_barang");
+                    String idbarang = resultset.getString("id_barang");
+                    String namabarang = resultset.getString("nama_barang");
+                    String jumlahbarang = "0";
+                    String hargabarang = resultset.getString("harga_barang");
 
-                String[] data = {idbarang,namabarang,jumlahbarang,hargabarang};
-                tabel1.addRow(data);
-
-                tabeljadi = new JTable(tabel1);
-                panel.add(tabeljadi);
-
+                    String[] data = {idbarang, namabarang,  hargabarang, jumlahbarang,};
+                    tabel1.addRow(data);
             }
+                //add ke panel
+                tabeljadi = new JTable(tabel1);
+                tabeljadi.setSize(200,100);
+                //tabeljadi.setBounds(30, 40, 200, 100);
+                JScrollPane sp = new JScrollPane(tabeljadi);
+                sp.setSize(200,100);
+                panel.add(sp);
+                panel.add(button);
+
+            //button buat menunjukkan selesainya pemilihan barang
+                button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null,"Apakah Anda yakin belanja barang tersebut?");
+                    int hitungrow = tabeljadi.getRowCount();
+
+
+                }
+            });
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -63,7 +84,7 @@ public class Menu extends Login {
 
         //tambahkan panel ke frame
         frame.add(panel);
-        frame.setSize(500, 200);
+        frame.setSize(500, 900);
         frame.setVisible(true);
 
     }
@@ -77,11 +98,24 @@ public class Menu extends Login {
                 JOptionPane.showMessageDialog(null,"Selamat Datang "+a);
             }
             else if (opsi1==JOptionPane.NO_OPTION){
-                frame.setVisible(false);
                 keLogin();
+                frame.setVisible(false);
             }
     }
 
+    //disini interface receipt
+    public void receipt() {
+        frame2 = new JFrame();
+        frame2.setTitle("Rincian Pembelian");
+        frame2.setContentPane(new Menu().panel2);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.pack();
+        frame2.setSize(400,500);
+        frame2.setLayout(null);
+        frame2.setVisible(true);
+    }
 
+    public void updatepembelian(){
 
+    }
 }
